@@ -1,22 +1,38 @@
 export default class Character {
-  constructor(name, health, attackPower) {
-    this.name = name;
-    this.health = health;
-    this.attackPower = attackPower;
-  }
+constructor(data) {
+  ths.id = data.id;
+  this.name = data.name;
+  this.slug = data.slug;
+  this.powerstats = data.powerstats;
 
-  attack(target) {
-    target.takeDamage(this.attackPower);
-  }
+  let str = 0
+  this.hitPoint = str * 10;
+  this.powerstats.HP = this.hitPoint;
 
-  takeDamage(damage) {
-    this.health -= damage;
-    if (this.health < 0) {
-      this.health = 0;
-    }
-  }
+}
 
-  isAlive() {
-    return this.health > 0;
+attack()
+{
+
+}
+
+isAlive() {
+  if(this.hitPoint > 0)
+  {
+    return true;
   }
+  else
+    return false;
+}
+
+reciveDamage(damage)
+{
+  this.hitPoint = this.hitPoint -damage;
+
+  if(this.hitPoint < 0)
+  {
+    this.hitPoint = 0;
+  }
+  return this.hitPoint;
+}
 }
