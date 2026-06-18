@@ -8,6 +8,7 @@ constructor(data) {
   let str = 0
   this.hitPoint = str * 10;
   this.powerstats.HP = this.hitPoint;
+  this.isAlive = true;
 
 }
 

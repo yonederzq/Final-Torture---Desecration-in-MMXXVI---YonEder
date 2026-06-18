@@ -78,6 +78,78 @@ export default class Combat {
 
 
     }
+
+    execute()
+    {
+        let attacker;
+        let defender;
+        if(this.fighter1.powerstats.INT + this.fighter1.powerstats.COM > this.fighter2.powerstats.INT + this.fighter2.powerstats.COM)
+        {
+            attacker = this.fighter1;
+            defender = this.fighter2;
+        }
+        else
+        {
+            attacker = this.fighter2;
+            defender = this.fighter1;
+        }
+
+        while(attacker.isAlive === true || defender.isAlive === true)
+        {
+            this.combatTurn(attacker, defender);
+            if(attacker.isAlive === false)
+            {
+                console.log(attacker.name + " es el ganador");
+            }
+            else if(defender.isAlive === false)
+            {
+                console.log(defender.name + " es el ganador")
+            }
+        }
+    }
+
+    combatTurn(attacker, defender)
+    {
+        let newAttacker = defender;
+        let newDefender = attacker;
+
+        let rollDice = this.d20.roll();
+
+        if(rollDice >=3 || rollDice <= 17)
+        {
+            this.calculateNormalDamage(attacker,defender,this.d20.roll());
+        }
+        else if(rollDice >= 18 || rollDice <= 20)
+        {
+            this.calculateCriticaldamage(attacker, defender,this.d20.roll());
+        }
+
+        console.log("WELCOME TO THE COMBATE ARENA");
+        console.log("----------------------------");
+        console.log("Hoy combatiran " + this.fighter1.name + " y " + this.fighter2.name);
+        console.log("----------------------------");
+        console.log("Lista de atributos");
+        console.log("Name: " + this.attacker.name);
+        console.log("HP: " + this.attacker.hitpoint);
+        console.log("INT: " + this.attacker.powerstats.INT);
+        console.log("STR: " + this.attacker.powerstats.STR);
+        console.log("COM: " + this.attacker.powerstats.COM);
+        console.log("DUR: " + this.attacker.powerstats.DUR);
+        console.log("POW: " + this.attacker.powerstats.POW);
+
+        console.log("------------------------------")
+        console.log("Name: " +  this.defender.name);
+        console.log("HP: " +    this.defender.hitpoint);
+        console.log("INT: " +   this.defender.powerstats.INT);
+        console.log("STR: " +   this.defender.powerstats.STR);
+        console.log("COM: " +   this.defender.powerstats.COM);
+        console.log("DUR: " +   this.defender.powerstats.DUR);
+        console.log("POW: " +   this.defender.powerstats.POW);
+
+        attacker = newAttacker;
+        defender = newDefender;
+
+    }
     
     calculateNormalDamage(attacker, defender, damageRoll)
     {
@@ -112,6 +184,11 @@ export default class Combat {
         defender.hitpoint -= totalDamage;
 
         console.log(attacker.name + " hizo un ataque critico. DAÑO TOTAL: " + normalDamage + " || Vida de " + defender.name + ": " + defender.hitpoint)
+
+    }
+
+    calculateFumbleDamage(attacker, defender, damageRoll)
+    {
 
     }
 
