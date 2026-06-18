@@ -76,7 +76,43 @@ export default class Combat {
         console.log("DUR: " + this.fighter2.powerstats.DUR);
         console.log("POW: " + this.fighter2.powerstats.POW);
 
+
+    }
+    
+    calculateNormalDamage(attacker, defender, damageRoll)
+    {
+        const normalDamage = (attacker.powerstats.POW + attacker.powerstats.STR) * damageRoll /100;
+
+        defender.hitpoint -= normalDamage;
+
+        console.log(attacker.name + " hizo un ataque normal. DAÑO TOTAL: " + normalDamage + " || Vida de " + defender.name + ": " + defender.hitpoint)
+    }
+
+    calculateCriticaldamage(attacker, defender, damageRoll)
+    {
+        const normalDamage = (attacker.powerstats.POW + attacker.powerstats.STR) * damageRoll /100;    
         
+        let criticalDamage = 0;
+
+        if(damageRoll === 18)
+        {
+            criticalDamage = (((attacker.powerstats.INT * attacker.powerstats.DUR)/100) * this.d3.roll());
+        }
+        else if(damageRoll === 19)
+        {
+            criticalDamage = (((attacker.powerstats.INT * attacker.powerstats.DUR)/100) * (this.d3.roll()+ this.d3.roll()));
+        }
+        else if(damageRoll === 20)
+        {
+            criticalDamage = (((attacker.powerstats.INT * attacker.powerstats.DUR)/100) * (this.d5.roll()+ this.d5.roll() + this.d5.roll()));
+        }
+        
+        const totalDamage = normalDamage + criticalDamage; 
+
+        defender.hitpoint -= totalDamage;
+
+        console.log(attacker.name + " hizo un ataque critico. DAÑO TOTAL: " + normalDamage + " || Vida de " + defender.name + ": " + defender.hitpoint)
+
     }
 
     }
