@@ -81,6 +81,7 @@ export default class Combat {
 
     execute()
     {
+        let contadorRonda = 0;
         let attacker;
         let defender;
         if(this.fighter1.powerstats.INT + this.fighter1.powerstats.COM > this.fighter2.powerstats.INT + this.fighter2.powerstats.COM)
@@ -97,6 +98,8 @@ export default class Combat {
         while(attacker.isAlive === true || defender.isAlive === true)
         {
             this.combatTurn(attacker, defender);
+            console.log("------Ronda " + contadorRonda + "-------");
+            contadorRonda++;
             if(attacker.isAlive === false)
             {
                 console.log(attacker.name + " es el ganador");
@@ -124,10 +127,7 @@ export default class Combat {
             this.calculateCriticaldamage(attacker, defender,this.d20.roll());
         }
 
-        console.log("WELCOME TO THE COMBATE ARENA");
-        console.log("----------------------------");
-        console.log("Hoy combatiran " + this.fighter1.name + " y " + this.fighter2.name);
-        console.log("----------------------------");
+        
         console.log("Lista de atributos");
         console.log("Name: " + this.attacker.name);
         console.log("HP: " + this.attacker.hitpoint);
